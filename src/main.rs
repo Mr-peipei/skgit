@@ -36,19 +36,49 @@
 // }
 extern crate skim;
 use skim::prelude::*;
+use std::io::Cursor;
+use std::io::{self, Write};
 use std::process::Command;
+struct CatItem {
+    inner: String,
+}
+
+impl SkimItem for CatItem {
+    fn text(&self) -> Cow<str> {
+        Cow::Borrowed(&self.inner)
+    }
+
+    fn preview(&self, _context: PreviewContext) -> ItemPreview {
+        let output = Command::new("cat")
+            .arg(&self.inner)
+            .output()
+            .expect("something went wrong");
+        ItemPreview::Command(format!("bat {}", self.inner))
+        // // io::stdout().write_all(&output.stdout).unwrap()
+        // if self.inner.starts_with("color") {
+        //     ItemPreview::AnsiText(format!("\x1b[31mhello:\x1b[m\n{}", self.inner))
+        // } else {
+        //     ItemPreview::Text(format!("hello:\n{}", self.inner))
+        // }
+    }
+}
 
 pub fn main() {
-    let options = SkimOptions::default();
+    let options = SkimOptionsBuilder::default()
+        .multi(true)
+        .preview(Some("bat {} --color=always | sed 's/  */ /g'"))
+        .build()
+        .unwrap();
 
     let selected_items = Skim::run_with(&options, None)
         .map(|out| out.selected_items)
         .unwrap_or_else(Vec::new);
 
     for item in selected_items.iter() {
-        Command::new("cat")
+        let output = Command::new("cat")
             .arg(item.output().to_string())
-            .spawn()
+            .output()
             .expect("something went wrong");
+        io::stdout().write_all(&output.stdout).unwrap()
     }
 }
