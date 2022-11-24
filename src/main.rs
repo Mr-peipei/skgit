@@ -35,8 +35,8 @@
 //     Ok(())
 // }
 extern crate skim;
+mod command;
 use skim::prelude::*;
-use std::io::Cursor;
 use std::io::{self, Write};
 use std::process::Command;
 struct CatItem {
@@ -47,19 +47,12 @@ impl SkimItem for CatItem {
     fn text(&self) -> Cow<str> {
         Cow::Borrowed(&self.inner)
     }
-
     fn preview(&self, _context: PreviewContext) -> ItemPreview {
         let output = Command::new("cat")
             .arg(&self.inner)
             .output()
             .expect("something went wrong");
         ItemPreview::Command(format!("bat {}", self.inner))
-        // // io::stdout().write_all(&output.stdout).unwrap()
-        // if self.inner.starts_with("color") {
-        //     ItemPreview::AnsiText(format!("\x1b[31mhello:\x1b[m\n{}", self.inner))
-        // } else {
-        //     ItemPreview::Text(format!("hello:\n{}", self.inner))
-        // }
     }
 }
 
@@ -75,10 +68,7 @@ pub fn main() {
         .unwrap_or_else(Vec::new);
 
     for item in selected_items.iter() {
-        let output = Command::new("cat")
-            .arg(item.output().to_string())
-            .output()
-            .expect("something went wrong");
+        let output = command::execute_command("cat", item.output().to_string());
         io::stdout().write_all(&output.stdout).unwrap()
     }
 }
