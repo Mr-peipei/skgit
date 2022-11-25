@@ -35,6 +35,7 @@
 //     Ok(())
 // }
 extern crate skim;
+mod add;
 mod command;
 use skim::prelude::*;
 use std::io::{self, Write};
@@ -67,8 +68,15 @@ pub fn main() {
         .map(|out| out.selected_items)
         .unwrap_or_else(Vec::new);
 
-    for item in selected_items.iter() {
-        let output = command::execute_command("cat", item.output().to_string());
-        io::stdout().write_all(&output.stdout).unwrap()
+    let selected_files: Vec<String> = selected_items
+        .iter()
+        .map(|x| x.output().to_string())
+        .rev()
+        .collect();
+
+    add::add_files(&selected_files).unwrap();
+
+    for item in selected_files.into_iter() {
+        println!("{}", &item)
     }
 }
