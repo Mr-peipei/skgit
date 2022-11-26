@@ -34,6 +34,7 @@
 //     }?;
 //     Ok(())
 // }
+
 extern crate skim;
 mod add;
 mod command;
@@ -68,9 +69,10 @@ pub fn main() {
         .map(|out| out.selected_items)
         .unwrap_or_else(Vec::new);
 
+    // Replace "./" to "" , because of add_all cannot be used by including "./" paths.
     let selected_files: Vec<String> = selected_items
         .iter()
-        .map(|x| x.output().to_string())
+        .map(|x| x.output().to_string().replace("./", ""))
         .rev()
         .collect();
 
