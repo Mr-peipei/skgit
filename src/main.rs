@@ -38,47 +38,23 @@
 extern crate skim;
 mod add;
 mod command;
-use skim::prelude::*;
-use std::io::{self, Write};
-use std::process::Command;
-struct CatItem {
-    inner: String,
-}
+mod find;
 
-impl SkimItem for CatItem {
-    fn text(&self) -> Cow<str> {
-        Cow::Borrowed(&self.inner)
-    }
-    fn preview(&self, _context: PreviewContext) -> ItemPreview {
-        let output = Command::new("cat")
-            .arg(&self.inner)
-            .output()
-            .expect("something went wrong");
-        ItemPreview::Command(format!("bat {}", self.inner))
-    }
-}
+use std::path::PathBuf;
 
-pub fn main() {
-    let options = SkimOptionsBuilder::default()
-        .multi(true)
-        .preview(Some("bat {} --color=always | sed 's/  */ /g'"))
-        .build()
-        .unwrap();
+use structopt::StructOpt;
+mod cli;
+mod tasks;
 
-    let selected_items = Skim::run_with(&options, None)
-        .map(|out| out.selected_items)
-        .unwrap_or_else(Vec::new);
+use cli::{Action::*, CommandLineArgs};
 
-    // Replace "./" to "" , because of add_all cannot be used by including "./" paths.
-    let selected_files: Vec<String> = selected_items
-        .iter()
-        .map(|x| x.output().to_string().replace("./", ""))
-        .rev()
-        .collect();
+pub fn main() -> anyhow::Result<()> {
+    let CommandLineArgs { action } = CommandLineArgs::from_args();
 
-    add::add_files(&selected_files).unwrap();
+    // Perform the action.
+    match action {
+        Add => add::add_files(),
+    }?;
 
-    for item in selected_files.into_iter() {
-        println!("{}", &item)
-    }
+    Ok(())
 }

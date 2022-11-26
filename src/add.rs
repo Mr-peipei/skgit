@@ -1,7 +1,9 @@
 use git2::Repository;
 use std::path::Path;
 
-pub fn add_files(args: &Vec<String>) -> Result<(), git2::Error> {
+use crate::find::selected_items;
+
+pub fn add_files() -> Result<(), git2::Error> {
     let repo = Repository::open(&Path::new("."))?;
     let mut index = repo.index()?;
 
@@ -34,12 +36,13 @@ pub fn add_files(args: &Vec<String>) -> Result<(), git2::Error> {
         println!("here2");
         None
     };
+    let selected_files = selected_items();
 
     if false {
         index.update_all(vec![""].iter(), cb)?;
     } else {
         println!("here3");
-        index.add_all(args.iter(), git2::IndexAddOption::DEFAULT, None)?;
+        index.add_all(selected_files.iter(), git2::IndexAddOption::DEFAULT, None)?;
     }
 
     index.write()?;
