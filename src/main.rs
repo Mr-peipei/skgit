@@ -44,6 +44,7 @@ use std::path::PathBuf;
 
 use structopt::StructOpt;
 mod cli;
+mod status;
 mod tasks;
 
 use cli::{Action::*, CommandLineArgs};
