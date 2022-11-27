@@ -14,18 +14,18 @@ impl SkimItem for StatusItem {
         Cow::Borrowed(&self.inner)
     }
     fn preview(&self, _context: PreviewContext) -> ItemPreview {
-        let output = Command::new("cat")
-            .arg(&self.inner)
-            .output()
-            .expect("something went wrong");
-        ItemPreview::Command(format!("bat {}", self.inner))
+        // Override Preview Func
+        ItemPreview::Command(format!(
+            "bat {} --color=always ",
+            format_str(self.inner.to_string())
+        ))
     }
 }
 
 pub fn selected_items(status_list: Vec<String>) -> Vec<String> {
     let options = SkimOptionsBuilder::default()
         .multi(true)
-        .preview(Some("bat {} --color=always | sed 's/  */ /g'"))
+        .preview(Some(""))
         .build()
         .unwrap();
 
