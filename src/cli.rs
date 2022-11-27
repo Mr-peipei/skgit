@@ -4,13 +4,10 @@ use structopt::StructOpt;
 pub enum Action {
     /// Write tasks to the journal file.
     Add,
-    // / Remove an entry from the journal file by position.
-    // Done {
+    // Sample.
+    // Sample {
     //     #[structopt()]
     //     position: usize,
-    // },
-    // /// List all tasks in the journal file.
-    // List,
 }
 
 #[derive(Debug, StructOpt)]

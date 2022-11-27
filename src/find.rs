@@ -30,7 +30,7 @@ pub fn selected_items(status_list: Vec<String>) -> Vec<String> {
         .unwrap();
 
     let (tx_item, rx_item): (SkimItemSender, SkimItemReceiver) = unbounded();
-
+    //
     for str in status_list {
         println!("{}", str);
         let _ = tx_item.send(Arc::new(StatusItem { inner: str }));
