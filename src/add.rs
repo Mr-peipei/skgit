@@ -18,7 +18,6 @@ pub fn add_files() -> Result<(), git2::Error> {
 
     for item in selected_files.iter() {
         println!("added {}", &item.to_str().unwrap());
-        println!("added {}", &item.to_str().unwrap());
         index.add_path(item.as_path())?;
     }
 
