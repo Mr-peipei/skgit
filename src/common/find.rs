@@ -1,7 +1,7 @@
-use std::{borrow::Cow, sync::Arc};
+use std::{borrow::Cow, path::PathBuf, sync::Arc};
 
 use skim::{
-    prelude::{unbounded, SkimOptionsBuilder},
+    prelude::{unbounded, Key, SkimOptionsBuilder},
     ItemPreview, PreviewContext, Skim, SkimItem, SkimItemReceiver, SkimItemSender,
 };
 
@@ -22,7 +22,7 @@ impl SkimItem for StatusItem {
     }
 }
 
-pub fn selected_items(status_list: Vec<String>) -> Vec<String> {
+pub fn selected_items(status_list: Vec<String>) -> Vec<PathBuf> {
     let options = SkimOptionsBuilder::default()
         .multi(true)
         .preview(Some(""))
@@ -36,16 +36,30 @@ pub fn selected_items(status_list: Vec<String>) -> Vec<String> {
     drop(tx_item);
 
     let selected_items = Skim::run_with(&options, Some(rx_item))
-        .map(|out| out.selected_items)
-        .unwrap_or_else(Vec::new);
+        .map(|out| match out.final_key {
+            Key::Enter => out.selected_items,
+            _ => Vec::new(),
+        })
+        .unwrap();
 
-    let selected_files: Vec<String> = selected_items
+    let selected_files: Vec<PathBuf> = selected_items
         .iter()
-        .map(|x| format_str(x.output().to_string()))
+        .map(|x| format_path_buf(x.output().to_string()))
         .rev()
         .collect();
 
     selected_files
+}
+
+fn format_path_buf(str: String) -> PathBuf {
+    let mut line = str.split_whitespace();
+    line.next();
+    let two = line.next();
+
+    return match two {
+        Some(n) => return PathBuf::from(&n.to_string()),
+        None => PathBuf::from(&"".to_string()),
+    };
 }
 
 fn format_str(str: String) -> String {
