@@ -17,7 +17,7 @@ pub fn add_files() -> Result<(), git2::Error> {
     let selected_files = selected_items(status_list);
 
     for item in selected_files.iter() {
-        println!("{}", &item.to_str().unwrap());
+        println!("added {}", &item.to_str().unwrap());
         index.add_path(item.as_path())?;
     }
 
