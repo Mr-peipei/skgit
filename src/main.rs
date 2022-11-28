@@ -1,12 +1,9 @@
 extern crate skim;
 mod add;
-mod command;
-mod find;
+mod common;
 
 use structopt::StructOpt;
 mod cli;
-mod status;
-mod tasks;
 
 use cli::{Action::*, CommandLineArgs};
 
