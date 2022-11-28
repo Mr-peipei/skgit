@@ -1,4 +1,4 @@
-use std::{borrow::Cow, process::Command, sync::Arc};
+use std::{borrow::Cow, sync::Arc};
 
 use skim::{
     prelude::{unbounded, SkimOptionsBuilder},
@@ -50,7 +50,7 @@ pub fn selected_items(status_list: Vec<String>) -> Vec<String> {
 
 fn format_str(str: String) -> String {
     let mut line = str.split_whitespace();
-    let one = line.next();
+    line.next();
     let two = line.next();
 
     return match two {
