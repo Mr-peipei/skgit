@@ -16,7 +16,7 @@ impl SkimItem for StatusItem {
     fn preview(&self, _context: PreviewContext) -> ItemPreview {
         // Override Preview Func
         ItemPreview::Command(format!(
-            "bat {} --color=always ",
+            "git diff --color=always --minimal {} ",
             format_str(self.inner.to_string())
         ))
     }
@@ -30,9 +30,7 @@ pub fn selected_items(status_list: Vec<String>) -> Vec<String> {
         .unwrap();
 
     let (tx_item, rx_item): (SkimItemSender, SkimItemReceiver) = unbounded();
-    //
     for str in status_list {
-        println!("{}", str);
         let _ = tx_item.send(Arc::new(StatusItem { inner: str }));
     }
     drop(tx_item);
@@ -41,7 +39,6 @@ pub fn selected_items(status_list: Vec<String>) -> Vec<String> {
         .map(|out| out.selected_items)
         .unwrap_or_else(Vec::new);
 
-    // Replace "./" to "" , because of add_all cannot be used by including "./" paths.
     let selected_files: Vec<String> = selected_items
         .iter()
         .map(|x| format_str(x.output().to_string()))

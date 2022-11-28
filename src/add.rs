@@ -17,7 +17,6 @@ pub fn add_files() -> Result<(), git2::Error> {
 
     let cb = &mut |path: &Path, _matched_spec: &[u8]| -> i32 {
         let status = repo.status_file(path).unwrap();
-        println!("add '{}'", path.display());
 
         let ret = if status.contains(git2::Status::WT_MODIFIED)
             || status.contains(git2::Status::WT_NEW)
