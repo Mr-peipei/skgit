@@ -1,5 +1,6 @@
 extern crate skim;
 mod add;
+mod checkout;
 mod common;
 
 use structopt::StructOpt;
@@ -13,6 +14,7 @@ pub fn main() -> anyhow::Result<()> {
     // Perform the action.
     match action {
         Add => add::add_files(),
+        Checkout => checkout::checkout_branch(),
     }?;
 
     Ok(())

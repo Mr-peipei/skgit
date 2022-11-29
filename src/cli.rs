@@ -2,8 +2,10 @@ use structopt::StructOpt;
 
 #[derive(Debug, StructOpt)]
 pub enum Action {
-    /// Write tasks to the journal file.
+    /// Git add command.
     Add,
+    /// Git checkout command.
+    Checkout,
     // Sample.
     // Sample {
     //     #[structopt()]
