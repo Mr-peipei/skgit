@@ -1,5 +1,12 @@
 [package]
 name = "skgit"
+author = ["Shumpei Murakami <murashun982@gmail.com>"]
+categories = ["command-line-utilities", "development-tools"]
+description = "useful cli tool for git basic command"
+documentation = "https://github.com/Mr-peipei/skgit"
+repository = "https://github.com/Mr-peipei/skgit"
+homepage = "https://github.com/Mr-peipei/skgit"
+license = "MIT"
 version = "0.1.0"
 edition = "2021"
 
