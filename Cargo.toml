@@ -1,6 +1,6 @@
 [package]
 name = "skgit"
-author = ["Shumpei Murakami <murashun982@gmail.com>"]
+authors = ["Shumpei Murakami <murashun982@gmail.com>"]
 categories = ["command-line-utilities", "development-tools"]
 description = "useful cli tool for git basic command"
 documentation = "https://github.com/Mr-peipei/skgit"

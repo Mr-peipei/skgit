@@ -4,8 +4,8 @@ use structopt::StructOpt;
 pub enum Action {
     /// Git add command.
     Add,
-    /// Git checkout command.
-    Checkout,
+    // Git checkout command.
+    // Checkout,
     // Sample.
     // Sample {
     //     #[structopt()]
