@@ -859,20 +859,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "97477e48b4cf8603ad5f7aaf897467cf42ab4218a38ef76fb14c2d6773a6d6a8"
 
 [[package]]
-name = "rusty-journal"
-version = "0.1.0"
-dependencies = [
- "anyhow",
- "chrono",
- "git2",
- "home",
- "serde",
- "serde_json",
- "skim",
- "structopt",
-]
-
-[[package]]
 name = "ryu"
 version = "1.0.11"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -926,6 +912,20 @@ name = "shlex"
 version = "1.1.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "43b2853a4d09f215c24cc5489c992ce46052d359b5109343cbafbf26bc62f8a3"
+
+[[package]]
+name = "skgit"
+version = "0.1.0"
+dependencies = [
+ "anyhow",
+ "chrono",
+ "git2",
+ "home",
+ "serde",
+ "serde_json",
+ "skim",
+ "structopt",
+]
 
 [[package]]
 name = "skim"
