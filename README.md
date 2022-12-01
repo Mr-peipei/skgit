@@ -3,6 +3,15 @@
 
 skgit is a Cli git utilities tool written by Rust.
 
+## Supported OS
+
+UNIX
+
+```
+cargo install skgit
+```
+
+
 ## Installation
 
 ```
@@ -12,6 +21,7 @@ cargo install skgit
 ## Usage
 
 ### Command
+
 ```
 skgit add
 ```
