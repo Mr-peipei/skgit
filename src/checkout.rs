@@ -15,7 +15,7 @@ pub fn checkout_branch() -> Result<(), git2::Error> {
 
     let selected_branch = selected_branch_items(repo.branches(Some(BranchType::Local)).unwrap());
 
-    println!("{}", selected_branch[0]);
+    println!("{}", selected_branch);
 
     Ok(())
 }

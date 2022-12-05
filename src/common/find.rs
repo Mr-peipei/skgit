@@ -52,7 +52,7 @@ pub fn selected_file_items(status_list: Vec<String>) -> Vec<PathBuf> {
     selected_files
 }
 
-pub fn selected_branch_items(status_list: Branches) -> Vec<String> {
+pub fn selected_branch_items(status_list: Branches) -> String {
     let options = SkimOptionsBuilder::default()
         .height(Some("50%"))
         .build()
@@ -70,13 +70,15 @@ pub fn selected_branch_items(status_list: Branches) -> Vec<String> {
         .map(|out| out.selected_items)
         .unwrap_or_else(Vec::new);
 
-    let selected_branch: Vec<String> = selected_item
+    let mut selected_branch: Vec<String> = selected_item
         .iter()
-        .map(|x| format_str(x.output().to_string()))
+        .map(|x| x.output().to_string())
         .rev()
         .collect();
 
-    selected_branch
+    let branch = selected_branch.pop().unwrap();
+
+    branch
 }
 
 fn format_path_buf(str: String) -> PathBuf {
