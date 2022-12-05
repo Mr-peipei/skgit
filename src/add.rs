@@ -1,7 +1,7 @@
 use git2::{Repository, StatusOptions};
 use std::path::Path;
 
-use crate::common::{selected_items, status_list};
+use crate::common::{selected_file_items, status_list};
 
 pub fn add_files() -> Result<(), git2::Error> {
     let repo = Repository::open(&Path::new("."))?;
@@ -14,7 +14,7 @@ pub fn add_files() -> Result<(), git2::Error> {
 
     let mut index = repo.index()?;
 
-    let selected_files = selected_items(status_list);
+    let selected_files = selected_file_items(status_list);
 
     for item in selected_files.iter() {
         println!("added {}", &item.to_str().unwrap());

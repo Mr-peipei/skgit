@@ -1,5 +1,6 @@
 use std::{borrow::Cow, path::PathBuf, sync::Arc};
 
+use git2::{Branch, Branches};
 use skim::{
     prelude::{unbounded, Key, SkimOptionsBuilder},
     ItemPreview, PreviewContext, Skim, SkimItem, SkimItemReceiver, SkimItemSender,
@@ -22,7 +23,7 @@ impl SkimItem for StatusItem {
     }
 }
 
-pub fn selected_items(status_list: Vec<String>) -> Vec<PathBuf> {
+pub fn selected_file_items(status_list: Vec<String>) -> Vec<PathBuf> {
     let options = SkimOptionsBuilder::default()
         .multi(true)
         .preview(Some(""))
@@ -49,6 +50,33 @@ pub fn selected_items(status_list: Vec<String>) -> Vec<PathBuf> {
         .collect();
 
     selected_files
+}
+
+pub fn selected_branch_items(status_list: Branches) -> Vec<String> {
+    let options = SkimOptionsBuilder::default()
+        .height(Some("50%"))
+        .build()
+        .unwrap();
+
+    let (tx_item, rx_item): (SkimItemSender, SkimItemReceiver) = unbounded();
+    for str in status_list {
+        let _ = tx_item.send(Arc::new(StatusItem {
+            inner: Branch::name(&str.unwrap().0).unwrap().unwrap().to_string(),
+        }));
+    }
+    drop(tx_item);
+
+    let selected_item = Skim::run_with(&options, Some(rx_item))
+        .map(|out| out.selected_items)
+        .unwrap_or_else(Vec::new);
+
+    let selected_branch: Vec<String> = selected_item
+        .iter()
+        .map(|x| format_str(x.output().to_string()))
+        .rev()
+        .collect();
+
+    selected_branch
 }
 
 fn format_path_buf(str: String) -> PathBuf {
