@@ -53,10 +53,7 @@ pub fn selected_file_items(status_list: Vec<String>) -> Vec<PathBuf> {
 }
 
 pub fn selected_branch_items(status_list: Branches) -> String {
-    let options = SkimOptionsBuilder::default()
-        .height(Some("50%"))
-        .build()
-        .unwrap();
+    let options = SkimOptionsBuilder::default().build().unwrap();
 
     let (tx_item, rx_item): (SkimItemSender, SkimItemReceiver) = unbounded();
     for str in status_list {
