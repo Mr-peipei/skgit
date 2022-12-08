@@ -30,6 +30,7 @@ skgit add
 ![skgit add demo](https://user-images.githubusercontent.com/54967427/206214010-bac63884-14aa-47d2-853d-118455ba4ed6.gif)
 
 
+And easily checkout your local repository.
 ```
 skgit checkout
 ```
