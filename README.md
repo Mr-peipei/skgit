@@ -34,6 +34,8 @@ And easily checkout your local repository.
 ```
 skgit checkout
 ```
+![skgit checkout demo](https://user-images.githubusercontent.com/54967427/206456666-51a868be-8e73-49ea-a785-415563e5f4ac.gif)
+
 
 ## Release Note
 
