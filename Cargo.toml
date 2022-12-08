@@ -7,7 +7,7 @@ documentation = "https://github.com/Mr-peipei/skgit"
 repository = "https://github.com/Mr-peipei/skgit"
 homepage = "https://github.com/Mr-peipei/skgit"
 license = "MIT"
-version = "0.1.0"
+version = "0.2.0"
 edition = "2021"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
