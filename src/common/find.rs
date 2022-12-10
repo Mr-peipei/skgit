@@ -18,7 +18,7 @@ impl SkimItem for StatusItem {
         // Override Preview Func
         ItemPreview::Command(format!(
             "git diff --color=always --minimal {} ",
-            format_str(self.inner.to_string())
+            get_file_name(self.inner.to_string())
         ))
     }
 }
@@ -45,7 +45,7 @@ pub fn selected_file_items(status_list: Vec<String>) -> Vec<PathBuf> {
 
     let selected_files: Vec<PathBuf> = selected_items
         .iter()
-        .map(|x| format_path_buf(x.output().to_string()))
+        .map(|x| string_to_path(x.output().to_string()))
         .rev()
         .collect();
 
@@ -78,7 +78,7 @@ pub fn selected_branch_items(status_list: Branches) -> String {
     branch
 }
 
-fn format_path_buf(str: String) -> PathBuf {
+fn string_to_path(str: String) -> PathBuf {
     let mut line = str.split_whitespace();
     line.next();
     let two = line.next();
@@ -89,7 +89,7 @@ fn format_path_buf(str: String) -> PathBuf {
     };
 }
 
-fn format_str(str: String) -> String {
+fn get_file_name(str: String) -> String {
     let mut line = str.split_whitespace();
     line.next();
     let two = line.next();
@@ -98,4 +98,33 @@ fn format_str(str: String) -> String {
         Some(n) => return n.to_string(),
         None => "".to_string(),
     };
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn string_to_path_test() {
+        assert_eq!(
+            string_to_path(String::from("MM filename.txt")),
+            PathBuf::from("filename.txt")
+        );
+        assert_eq!(
+            string_to_path(String::from("MM filename.txt")),
+            PathBuf::from("filename.txt")
+        )
+    }
+
+    #[test]
+    fn format_str_test() {
+        assert_eq!(
+            get_file_name(String::from("MM filename.txt")),
+            "filename.txt"
+        );
+        assert_eq!(
+            get_file_name(String::from("MM filename.txt")),
+            "filename.txt"
+        )
+    }
 }
