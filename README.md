@@ -5,10 +5,10 @@ skgit is a Cli git utilities tool written by Rust.
 
 ## Supported OS
 
-UNIX only.
-This tool not supported on Windows because of now skim's dependency library  not supporting Windows.
+UNIX only.  
+This tool not supported on Windows because of now skim's dependency library  not supporting Windows.  
 If you want to use skgit in Windows, please try to install on WSL2.
-Sorry for inconvenience.
+Sorry for inconvenience.  
 
 
 ## Installation
