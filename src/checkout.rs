@@ -10,8 +10,7 @@ pub fn checkout_branch() -> Result<(), git2::Error> {
 
     println!("{}", selected_branch);
 
-    let mut str = String::from("refs/heads/");
-    str += &selected_branch;
+    let str = String::from("refs/heads/") + &selected_branch;
     repo.set_head(&str).unwrap();
 
     Ok(())
