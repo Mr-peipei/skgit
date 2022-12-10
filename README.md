@@ -5,11 +5,10 @@ skgit is a Cli git utilities tool written by Rust.
 
 ## Supported OS
 
-UNIX
-
-```
-cargo install skgit
-```
+UNIX only.
+This tool not supported on Windows because of now skim's dependency library  not supporting Windows.
+If you want to use skgit in Windows, please try to install on WSL2.
+Sorry for inconvenience.
 
 
 ## Installation
@@ -22,7 +21,7 @@ cargo install skgit
 
 ### Command
 
-You can git add by interactive search by skim.
+<!-- You can git add by interactive search by skim. -->
 And in preview window, there is a diff that you selected in skim.
 ```
 skgit add
@@ -42,6 +41,8 @@ skgit checkout
 
 - 2022/11/30 version 0.1.0
   - Implement add command
+- 2022/11/30 version 0.1.0
+  - Implement checkout command
 
 
 ## LICENSE
