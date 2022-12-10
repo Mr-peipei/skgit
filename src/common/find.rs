@@ -73,9 +73,7 @@ pub fn selected_branch_items(status_list: Branches) -> String {
         .rev()
         .collect();
 
-    let branch = selected_branch.pop().unwrap();
-
-    branch
+    selected_branch.pop().unwrap()
 }
 
 fn string_to_path(str: String) -> PathBuf {
@@ -84,7 +82,7 @@ fn string_to_path(str: String) -> PathBuf {
     let two = line.next();
 
     return match two {
-        Some(n) => return PathBuf::from(&n.to_string()),
+        Some(n) => PathBuf::from(&n.to_string()),
         None => PathBuf::from(&"".to_string()),
     };
 }
@@ -95,7 +93,7 @@ fn get_file_name(str: String) -> String {
     let two = line.next();
 
     return match two {
-        Some(n) => return n.to_string(),
+        Some(n) => n.to_string(),
         None => "".to_string(),
     };
 }
