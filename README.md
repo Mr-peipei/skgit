@@ -27,7 +27,8 @@ And in preview window, there is a diff that you selected in skim.
 ```
 skgit add
 ```
-![skgit add demo](https://user-images.githubusercontent.com/54967427/206214010-bac63884-14aa-47d2-853d-118455ba4ed6.gif)
+![skgit add demo](https://user-images.githubusercontent.com/54967427/206841812-9216f9b8-efc5-4bda-8d75-01f26148e600.gif)
+
 
 
 And easily checkout your local repository.
