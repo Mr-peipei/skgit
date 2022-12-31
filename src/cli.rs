@@ -6,10 +6,6 @@ pub enum Action {
     Add,
     /// Git checkout command.
     Checkout,
-    // Sample.
-    // Sample {
-    //     #[structopt()]
-    //     position: usize,
 }
 
 #[derive(Debug, StructOpt)]
