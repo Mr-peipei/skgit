@@ -41,7 +41,7 @@ skgit checkout
 
 - 2022/11/30 version 0.1.0
   - Implement add command
-- 2022/11/30 version 0.1.0
+- 2022/11/30 version 0.2.0
   - Implement checkout command
 
 
