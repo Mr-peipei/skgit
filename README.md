@@ -7,7 +7,7 @@
 <a href="https://crates.io/crates/skgit"><img src="https://img.shields.io/crates/v/skgit.svg?colorB=319e8c" alt="Version info"></a><br>
 </p>
 
-Welcome to skgit.
+Welcome to skgit.  
 skgit is a Cli git utilities tool written by Rust.
 
 ## Supported OS
